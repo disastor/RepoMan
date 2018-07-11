@@ -30,71 +30,8 @@ hello-world:
 build:
   stage: build
   script:
-    - command build
-  only:
-    - branches
-    
-    
-canary:
-  stage: canary
-  script:
-    - command canary
-  environment:
-    name: production
-    url: http://$CI_PROJECT_PATH_SLUG.$KUBE_DOMAIN
-  when: manual
-  only:
-    - master
+    - echo "Built from GitHub Files."
 
-
-production:
-  stage: production
-  script:
-    - command deploy
-  environment:
-    name: production
-    url: http://$CI_PROJECT_PATH_SLUG.$KUBE_DOMAIN
-  when: manual
-  only:
-    - master
-
-staging:
-  stage: staging
-  script:
-    - command deploy
-  environment:
-    name: staging
-    url: http://$CI_PROJECT_PATH_SLUG-staging.$KUBE_DOMAIN
-  only:
-    - master
-
-review:
-  stage: review
-  script:
-    - command deploy
-  environment:
-    name: review/$CI_COMMIT_REF_NAME
-    url: http://$CI_PROJECT_PATH_SLUG-$CI_ENVIRONMENT_SLUG.$KUBE_DOMAIN
-    on_stop: stop_review
-  only:
-    - branches
-  except:
-    - master
-
-stop_review:
-  stage: cleanup
-  variables:
-    GIT_STRATEGY: none
-  script:
-    - command destroy
-  environment:
-    name: review/$CI_COMMIT_REF_NAME
-    action: stop
-  when: manual
-  only:
-    - branches
-  except:
-    - master
 
 sast:
   stage: test 
