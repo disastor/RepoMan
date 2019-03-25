@@ -30,7 +30,7 @@ hello-world:
 build:
   stage: build
   script:
-    - echo "Built from GitHub Files on 3/25!"
+    - echo "Built from GitHub Files on 3/25 for Toyota!"
 
 
 sast:
